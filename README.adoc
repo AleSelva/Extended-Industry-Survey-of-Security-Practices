@@ -1,4 +1,4 @@
-= Security Practices in Agile Development: Survey Data and Analysis
+= From Recognition to Systematic Adoption: An Extended Industry Survey of Security Practices across the Software Development Life Cycle
 
 Data and analysis scripts for the article _From Recognition to Systematic Adoption: An Extended Industry Survey of Security Practices across the Software Development Life Cycle_, an extended version of the CIbSE 2026 paper _Security Practices in Agile Development: An Industry Survey on Adoption, Perceived Impact, and Measurement in DevOps_.
 
