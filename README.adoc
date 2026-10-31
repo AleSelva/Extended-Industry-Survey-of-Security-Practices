@@ -1,0 +1,64 @@
+= Security Practices in Agile Development: Survey Data and Analysis
+
+Data and analysis scripts for the article _From Recognition to Systematic Adoption: An Extended Industry Survey of Security Practices across the Software Development Life Cycle_, an extended version of the CIbSE 2026 paper _Security Practices in Agile Development: An Industry Survey on Adoption, Perceived Impact, and Measurement in DevOps_.
+
+The survey examines how software professionals, primarily in Costa Rica, integrate security practices into agile and DevOps development. The dataset contains 34 complete responses (24 from the first iteration and 10 additional ones) out of 112 initiated questionnaires.
+
+== Contents
+
+[cols="1,3",options="header"]
+|===
+| File | Description
+| `Extended_Survey_Results.xlsm` | Survey responses and all descriptive, uncertainty, and subgroup analyses, implemented as spreadsheet formulas, with charts.
+| `incertidumbre.py` | Uncertainty analysis: Wilson confidence intervals, Cochran's Q, exact McNemar tests with Holm correction, bootstrap, Fisher's exact tests, and sensitivity to "Don't know/No answer" (DK/NA) responses.
+| `analisis_sectorial.py` | Sector analysis: industry composition by iteration and security integration per SDLC phase by industry group.
+|===
+
+== Workbook structure
+
+All analysis sheets are computed from `Complete Responses` and update if responses change. The workbook contains macros (`.xlsm`).
+
+[cols="1,3",options="header"]
+|===
+| Sheet(s) | Content
+| `Overview` | Questionnaire structure, response counts, and impact weights (Very low = 1 to Very high = 5).
+| `Total Responses`, `Complete Responses` | All initiated questionnaires and the 34 complete responses used in the analyses.
+| `General Info`, `Agile SW`, `Tables`, `Security Practices`, `SP Usage`, `Benefits & more`, `Closure` | Descriptive results by survey section.
+| `SP per major`, `SP per Industry` | Use and perceived impact of security activities by professional background and by regulated vs. non-regulated industries, with impact averages excluding DK/NA and % DK/NA.
+| `Uncertainty - SDLC Phases`, `Uncertainty - Tests`, `Uncertainty - Don't Know` | Wilson intervals per phase, statistical tests, bootstrap results, and DK/NA sensitivity scenarios.
+| `Industry Analysis`, `Org vs IT Size` | Industry composition, integration per phase by industry group, and organization size vs. IT department size.
+| `Usage vs Impact`, `Activity Heatmap`, `Phases and Perceptions`, `Diverging by Phase`, `RI vs NrI Dumbbells` | Charts: usage–impact bubble chart, activity heatmap, confidence-interval dot plot, diverging stacked bars, and dumbbell charts.
+|===
+
+NOTE: Fisher's exact test and bootstrap results in the uncertainty sheets (shown in blue) were computed with `incertidumbre.py` and entered as constants; they do not update automatically.
+
+== Requirements and usage
+
+Python 3.9 or later with `openpyxl`, `scipy`, `numpy`, and `statsmodels`:
+
+[source,bash]
+----
+pip install openpyxl scipy numpy statsmodels
+python3 incertidumbre.py Extended_Survey_Results.xlsm
+python3 analisis_sectorial.py Extended_Survey_Results.xlsm
+----
+
+Both scripts print their results to the console (output labels in Spanish), following the order of the analyses in the article.
+
+== Reproducibility notes
+
+* *Iteration split:* responses with `Response ID` ≤ 91 belong to the first iteration; the cut-off (`ID_CORTE`) is set in the scripts and in `Uncertainty - SDLC Phases`.
+* *Column positions:* the scripts read `Complete Responses` by column position; inserting or deleting columns requires updating the indices.
+* *Random seed:* the bootstrap uses a fixed seed (2026).
+* *Labels:* "Mostly" (Implementation block) and "Mostly used" are counted as the same category.
+* *DK/NA:* excluded from impact averages and reported separately as an indicator of uncertainty.
+* *Privacy:* responses are anonymous; remove the open-text column with participants' e-mail addresses before publishing.
+
+== Citation
+
+* Selva-Mora, A., Quesada-López, C., Lara, A., and Jenkins, M. (2026). Security practices in agile development: An industry survey on adoption, perceived impact, and measurement in DevOps. In _Proceedings of the Ibero-American Conference on Software Engineering (CIbSE 2026)_.
+* Extended version: _to be completed with authors, title, journal, year, and DOI._
+
+== License and contact
+
+License _to be defined (e.g., CC BY 4.0 for data, MIT for code)_. Contact: Alejandra Selva-Mora, ECCI and CITIC, Universidad de Costa Rica -- alejandra.selvamora@ucr.ac.cr
